@@ -1,0 +1,22 @@
+$themes: (
+  dark: (
+    bg-img-desk: url("../../../public/img/bg-desktop-dark.jpg"),
+    bg-img-mob: url("../../../public/img/bg-mobile-dark.jpg"),
+    bg: $bg-dark,
+    bg-list: $bg-list-dark,
+    tc-primary: $tc-primary-dark,
+    tc-secondary: $tc-secondary-dark,
+    tc-select: $tc-select-dark,
+    tc-comp: $tc-comp-dark,
+  ),
+  light: (
+    bg-img-desk: url("../../../public/img/bg-desktop-dark.jpg"),
+    bg-img-mob: url("../../../public/img/bg-mobile-dark.jpg"),
+    bg: $bg-light,
+    bg-list: $bg-list-light,
+    tc-primary: $tc-primary-light,
+    tc-secondary: $tc-secondary-light,
+    tc-select: $tc-select-light,
+    tc-comp: $tc-comp-light,
+  ),
+);

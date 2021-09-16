@@ -1,10 +1,14 @@
 import React from "react";
-import "../../scss/main.scss";
+import Main from "../Main/Main";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
+import "./App.scss";
 
 const App = () => {
   return (
     <>
-      <h1>Todo List</h1>
+      <Main />
+      <h2 className="theme-dark">Hakka</h2>
+      <ThemeToggle />
     </>
   );
 };

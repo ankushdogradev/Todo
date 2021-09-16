@@ -1,0 +1,24 @@
+$accent-color: #3a7bfd;
+$gradient-blue-to-purple: linear-gradient(to right, #57ddff, #c058f3);
+$gradient-purple-to-blue: linear-gradient(to right, #c058f3, #57ddff);
+$shadow: 0px 8px 10px hsl(237, 14%, 26%);
+
+// Light
+$bg-list-light: hsl(0, 0%, 98%);
+$bg-light: hsl(236, 33%, 92%);
+
+$tc-primary-light: hsl(236, 9%, 61%);
+$tc-select-light: hsl(235, 19%, 35%);
+$tc-secondary-light: hsl(233, 11%, 84%);
+$tc-comp-light: hsl(234, 12%, 88%);
+
+// Dark
+$bg-dark: hsl(235, 21%, 11%);
+$bg-list-dark: hsl(235, 24%, 19%);
+
+$tc-primary-dark: hsl(234, 39%, 85%);
+$tc-select-dark: hsl(236, 33%, 92%);
+$tc-secondary-dark: hsl(234, 11%, 52%);
+$tc-comp-dark: hsl(235, 12%, 40%);
+
+$font-size: 1.125rem;
