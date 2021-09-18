@@ -1,6 +1,10 @@
 // container
 @import "../../scss/container/container";
 
-.heading {
-  @include theme-aware("color", "tc-primary");
+.cont {
+  &__head {
+    h1 {
+      @include theme-aware("color", "tc-primary");
+    }
+  }
 }

@@ -1,6 +1,8 @@
 // https://dev.to/murtuzaalisurti/dark-mode-toggle-animation-using-css-27il
 
+// https://medium.com/next-generation-web/create-a-dark-mode-toggle-micro-interaction-like-a-pro-279305e9c2
 import React, { useState, useEffect } from "react";
+import { BsMoon, BsSun } from "react-icons/bs";
 import "./ThemeToggle.scss";
 
 const ThemeToggle = () => {
@@ -14,7 +16,7 @@ const ThemeToggle = () => {
       document.documentElement.classList.add("theme-light");
       document.documentElement.classList.remove("theme-dark");
       setTheme("Light");
-    } else {
+    } else if (!themeState) {
       localStorage.setItem("Theme", "dark");
       document.documentElement.classList.add("theme-dark");
       document.documentElement.classList.remove("theme-light");
@@ -22,19 +24,32 @@ const ThemeToggle = () => {
     }
   };
 
-  useEffect(() => {
-    const getTheme = localStorage.getItem("Theme");
-    if (getTheme === "dark") {
-      return document.documentElement.classList.add("theme-dark");
-    } else if (getTheme === "light") {
-      return document.documentElement.classList.add("theme-light");
-    }
-  });
+  // useEffect(() => {
+  //   const getTheme = localStorage.getItem("Theme");
+  //   if (getTheme === "dark") {
+  //     return document.documentElement.classList.add("theme-dark");
+  //   } else if (getTheme === "light") {
+  //     return document.documentElement.classList.add("theme-light");
+  //   }
+  // });
   return (
     <>
-      <button className="btn" onClick={handleChange}>
-        {theme} Switch
-      </button>
+      <div className="toggle" onClick={handleChange}>
+        <img
+          className={
+            themeState ? `toggle__sun--anim  toggle__sun` : `toggle__sun`
+          }
+          src="/img/icon-sun.svg"
+          alt="Dark"
+        />
+        <img
+          className={
+            themeState ? `toggle__moon--anim toggle__moon` : `toggle__moon`
+          }
+          src="/img/icon-moon.svg"
+          alt="Light"
+        />
+      </div>
     </>
   );
 };
