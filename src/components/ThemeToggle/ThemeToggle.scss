@@ -1,53 +1,6 @@
 // container
 @import "../../scss/container/container";
 
-.btn {
-  padding: 0.6rem;
-  margin: 1rem;
-  cursor: pointer;
-  @include theme-aware("background", "bg-list");
-  @include theme-aware("color", "tc-secondary");
-}
-
-// .toggle {
-//   position: relative;
-//   &__sun,
-//   &__moon {
-//     font-size: 1.75rem;
-//     width: fit-content;
-//     height: fit-content;
-//   }
-
-//   &__moon {
-//     position: absolute;
-//     inset: 0;
-//   }
-
-//   &--sun-logo {
-//     opacity: 1;
-//     transform: translateY(0) rotateZ(0deg);
-//     transition: all 1s ease-out;
-//   }
-
-//   &--moon-logo {
-//     opacity: 0;
-//     transform: translateY(20%) rotateZ(50deg);
-//     transition: all 1s ease-out;
-//   }
-
-//   &__animate-sun {
-//     opacity: 0;
-//     transform: translateY(20%) rotateZ(100deg);
-//     color: aliceblue;
-//   }
-
-//   &__animate-moon {
-//     opacity: 1;
-//     transform: translateY(0%) rotateZ(0deg);
-//     color: aliceblue;
-//   }
-// }
-
 .toggle {
   position: relative;
   width: 1.75rem;

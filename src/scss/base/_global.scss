@@ -1,5 +1,8 @@
+@import "../../scss/container/container";
+
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 *,
@@ -12,4 +15,9 @@ html {
 
 body {
   font-family: "Josefin Sans", sans-serif;
+}
+
+.mar {
+  padding-left: 6.4%;
+  padding-right: 6.4%;
 }

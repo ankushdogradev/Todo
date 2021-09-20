@@ -3,8 +3,3 @@
 
 // base
 @import "../../scss/base/global";
-
-body {
-  @include theme-aware("background", "bg");
-  @include theme-aware("color", "tc-primary");
-}

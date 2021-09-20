@@ -2,7 +2,6 @@
 
 // https://medium.com/next-generation-web/create-a-dark-mode-toggle-micro-interaction-like-a-pro-279305e9c2
 import React, { useState, useEffect } from "react";
-import { BsMoon, BsSun } from "react-icons/bs";
 import "./ThemeToggle.scss";
 
 const ThemeToggle = () => {
@@ -24,14 +23,14 @@ const ThemeToggle = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const getTheme = localStorage.getItem("Theme");
-  //   if (getTheme === "dark") {
-  //     return document.documentElement.classList.add("theme-dark");
-  //   } else if (getTheme === "light") {
-  //     return document.documentElement.classList.add("theme-light");
-  //   }
-  // });
+  useEffect(() => {
+    const getTheme = localStorage.getItem("Theme");
+    if (getTheme === "dark") {
+      return document.documentElement.classList.add("theme-dark");
+    } else if (getTheme === "light") {
+      return document.documentElement.classList.add("theme-light");
+    }
+  });
   return (
     <>
       <div className="toggle" onClick={handleChange}>
