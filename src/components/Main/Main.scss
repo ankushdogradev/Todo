@@ -1,9 +1,17 @@
 @import "../../scss/container/container";
 
+// .grabbing {cursor: -webkit-grabbing; cursor: grabbing;}
+
 body {
   transition: all 1s ease-out;
   @include theme-aware("background", "bg");
   @include theme-aware("color", "tc-primary");
+}
+
+.todo {
+  width: 100%;
+  min-width: 328px;
+  max-width: 540px;
 }
 
 .bg--img {
@@ -15,49 +23,68 @@ body {
   width: 100%;
 }
 
-.cont {
-  &__head {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 3rem;
-    h1 {
-      color: #fff;
-    }
+.head {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3rem;
+  h1 {
+    color: #fff;
   }
+}
+
+.cont {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
   &__input {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 15px 18px;
     margin-top: 40px;
 
+    width: 100%;
+
+    height: 48px;
+    border-radius: 6px;
+
+    @include theme-aware("background", "bg-list");
+    @include theme-aware("color", "tc-primary");
+    transition: all 1s ease-out;
+
+    &--circle {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #e3e4f1;
+      border-radius: 50%;
+    }
     input {
-      width: 328px;
-      height: 48px;
       border: none;
-      border-radius: 6px;
-      padding-left: 52px;
-      @include theme-aware("background", "bg-list");
+      margin-left: 2rem;
       @include theme-aware("color", "tc-primary");
+      @include theme-aware("background", "bg-list");
       transition: all 1s ease-out;
     }
   }
 
   &__list {
     margin-top: 16px;
+    width: 100%;
 
     @include theme-aware("color", "tc-primary");
-    display: flex;
-    justify-content: center;
 
     li {
       display: flex;
-      align-items: center;
-      width: 328px;
+      width: 100%;
       height: 48px;
-      padding: 15px 52px;
+      padding: 15px 18px;
+
       list-style: none;
       border-bottom: 1px solid #e3e4f1;
-      cursor: pointer;
+      cursor: -webkit-grab;
+      cursor: grab;
 
       @include theme-aware("background", "bg-list");
       transition: all 1s ease-out;
@@ -65,6 +92,26 @@ body {
       &:first-child {
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
+      }
+
+      p {
+        margin-left: 2rem;
+        margin-right: auto;
+      }
+
+      .check,
+      .del {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .check {
+        border: 1px solid #e3e4f1;
+        border-radius: 50%;
       }
     }
   }
@@ -74,12 +121,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 
     &--side {
       display: flex;
       justify-content: space-between;
       font-size: 0.9rem;
-      width: 328px;
+      width: 100%;
       height: 48px;
       padding: 15px 52px;
       border-bottom-left-radius: 6px;
@@ -99,7 +147,7 @@ body {
       display: flex;
       justify-content: space-evenly;
       font-weight: 700;
-      width: 328px;
+      width: 100%;
       height: 48px;
       padding: 15px 52px;
       margin-top: 15px;
@@ -133,7 +181,17 @@ body {
     ul {
       li {
         border-bottom: 1px solid #393a4b;
+
+        .check {
+          border: 1px solid #393a4b;
+        }
       }
+    }
+  }
+
+  .cont__input {
+    &--circle {
+      border: 1px solid #393a4b;
     }
   }
 }
