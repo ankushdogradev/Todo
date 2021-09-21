@@ -57,15 +57,23 @@ body {
     &--circle {
       width: 24px;
       height: 24px;
-      border: 1px solid #e3e4f1;
+      @include theme-aware("border", "brdr");
+
       border-radius: 50%;
     }
     input {
       border: none;
       margin-left: 2rem;
+      width: 100%;
+      height: 100%;
       @include theme-aware("color", "tc-primary");
       @include theme-aware("background", "bg-list");
       transition: all 1s ease-out;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: none;
     }
   }
 
@@ -78,11 +86,13 @@ body {
     li {
       display: flex;
       width: 100%;
-      height: 48px;
+      min-height: 48px;
+      height: auto;
       padding: 15px 18px;
 
       list-style: none;
-      border-bottom: 1px solid #e3e4f1;
+      @include theme-aware("border-bottom", "brdr");
+
       cursor: -webkit-grab;
       cursor: grab;
 
@@ -97,11 +107,17 @@ body {
       p {
         margin-left: 2rem;
         margin-right: auto;
+
+        &.comp {
+          text-decoration: line-through;
+          @include theme-aware("color", "tc-comp");
+        }
       }
 
       .check,
+      .edit,
       .del {
-        width: 24px;
+        min-width: 24px;
         height: 24px;
         display: flex;
         align-items: center;
@@ -110,8 +126,39 @@ body {
       }
 
       .check {
-        border: 1px solid #e3e4f1;
+        @include theme-aware("border", "brdr");
+        transition: all 1s ease-in-out;
+
         border-radius: 50%;
+
+        &--icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: $gradient-blue-to-purple;
+          color: #fff;
+          opacity: 0;
+          transition: all 0.3s ease-in-out;
+
+          &.comp {
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+
+      .edit:hover {
+        color: #9acd32;
+      }
+
+      .del {
+        margin-left: 0.5rem;
+        &:hover {
+          color: #ff6347;
+        }
       }
     }
   }
@@ -172,26 +219,6 @@ body {
     font-weight: 700;
     p {
       @include theme-aware("color", "tc-secondary");
-    }
-  }
-}
-
-.theme-dark {
-  .cont__list {
-    ul {
-      li {
-        border-bottom: 1px solid #393a4b;
-
-        .check {
-          border: 1px solid #393a4b;
-        }
-      }
-    }
-  }
-
-  .cont__input {
-    &--circle {
-      border: 1px solid #393a4b;
     }
   }
 }

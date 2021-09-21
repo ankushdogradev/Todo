@@ -8,6 +8,7 @@ $themes: (
     tc-secondary: $tc-secondary-dark,
     tc-select: $tc-select-dark,
     tc-comp: $tc-comp-dark,
+    brdr: 1px solid $border-dark,
   ),
   light: (
     bg-img-desk: url("../assets/bg-desktop-light.jpg"),
@@ -18,5 +19,6 @@ $themes: (
     tc-secondary: $tc-secondary-light,
     tc-select: $tc-select-light,
     tc-comp: $tc-comp-light,
+    brdr: 1px solid $border-light,
   ),
 );
