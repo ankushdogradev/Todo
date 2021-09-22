@@ -72,7 +72,7 @@ body {
       height: 100%;
       @include theme-aware("color", "tc-primary");
       @include theme-aware("background", "bg-list");
-      transition: all 1s ease-out;
+      transition: color 1s ease-out, background 1s ease-out;
 
       &.edit {
         background-color: greenyellow;
@@ -101,12 +101,8 @@ body {
 
       list-style: none;
       @include theme-aware("border-bottom", "brdr");
-
-      cursor: -webkit-grab;
-      cursor: grab;
-
       @include theme-aware("background", "bg-list");
-      transition: all 1s ease-out;
+      transition: background 1s ease-out, background 1s ease-out;
 
       &:first-child {
         border-top-left-radius: 6px;

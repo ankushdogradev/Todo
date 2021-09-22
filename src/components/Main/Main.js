@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { BsCheck, BsTrash } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import uniqid from "uniqid";
 import "./Main.scss";
 
@@ -41,6 +42,16 @@ const Main = () => {
   const [filter, setFilter] = useState([]);
   const [toggleEdit, setToggleEdit] = useState(false);
   const [editID, setEditID] = useState(null);
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(filter);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setFilter(items);
+  };
 
   const checkItem = (id) => {
     console.log("Check handler called");
@@ -182,33 +193,60 @@ const Main = () => {
               />
             </div>
             <div className="cont__list">
-              <ul>
-                {filter.map((item) => {
-                  return (
-                    <li key={item.id}>
-                      <div className="check">
-                        <div
-                          className={`check--icon ${
-                            item.completed ? `comp` : ""
-                          }`}
-                          onClick={() => checkItem(item.id)}
-                        >
-                          <BsCheck style={{ fontSize: "1.3rem" }} />
-                        </div>
-                      </div>
-                      <p className={`${item.completed ? `comp` : ""}`}>
-                        {item.text}
-                      </p>
-                      <div className="edit" onClick={() => editItem(item.id)}>
-                        <MdEdit style={{ fontSize: "1.3rem" }} />
-                      </div>
-                      <div className="del" onClick={() => deleteItem(item.id)}>
-                        <BsTrash style={{ fontSize: "1.3rem" }} />
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
+              <DragDropContext onDragEnd={handleDragEnd}>
+                <Droppable droppableId="filter">
+                  {(provided) => (
+                    <ul {...provided.droppableProps} ref={provided.innerRef}>
+                      {filter.map((item, index) => {
+                        return (
+                          <Draggable
+                            key={item.id}
+                            draggableId={item.id}
+                            index={index}
+                          >
+                            {(provided) => (
+                              <li
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                ref={provided.innerRef}
+                              >
+                                <div className="check">
+                                  <div
+                                    className={`check--icon ${
+                                      item.completed ? `comp` : ""
+                                    }`}
+                                    onClick={() => checkItem(item.id)}
+                                  >
+                                    <BsCheck style={{ fontSize: "1.3rem" }} />
+                                  </div>
+                                </div>
+                                <p
+                                  className={`${item.completed ? `comp` : ""}`}
+                                >
+                                  {item.text}
+                                </p>
+                                <div
+                                  className="edit"
+                                  onClick={() => editItem(item.id)}
+                                >
+                                  <MdEdit style={{ fontSize: "1.3rem" }} />
+                                </div>
+                                <div
+                                  className="del"
+                                  onClick={() => deleteItem(item.id)}
+                                >
+                                  <BsTrash style={{ fontSize: "1.3rem" }} />
+                                </div>
+                              </li>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </ul>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
             <div className="cont__fillter">
               <div className="cont__fillter--side">
