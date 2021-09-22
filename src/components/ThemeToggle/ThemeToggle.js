@@ -3,31 +3,36 @@ import "./ThemeToggle.scss";
 
 const ThemeToggle = () => {
   const [themeState, setThemeState] = useState(false);
-  const [theme, setTheme] = useState("");
 
   const handleChange = () => {
     setThemeState(!themeState);
+
     if (themeState) {
-      localStorage.setItem("Theme", "light");
       document.documentElement.classList.add("theme-light");
       document.documentElement.classList.remove("theme-dark");
-      setTheme("Light");
+
+      localStorage.setItem("Theme", "light");
     } else if (!themeState) {
-      localStorage.setItem("Theme", "dark");
       document.documentElement.classList.add("theme-dark");
       document.documentElement.classList.remove("theme-light");
-      setTheme("Dark");
+
+      localStorage.setItem("Theme", "dark");
     }
   };
 
   useEffect(() => {
     const getTheme = localStorage.getItem("Theme");
     if (getTheme === "dark") {
-      return document.documentElement.classList.add("theme-dark");
+      document.documentElement.classList.remove("theme-light");
+      document.documentElement.classList.add("theme-dark");
+      setThemeState(true);
     } else if (getTheme === "light") {
-      return document.documentElement.classList.add("theme-light");
+      document.documentElement.classList.remove("theme-dark");
+      document.documentElement.classList.add("theme-light");
+      setThemeState(false);
     }
-  });
+  }, []);
+
   return (
     <>
       <div className="toggle" onClick={handleChange}>

@@ -3,6 +3,13 @@
 html {
   box-sizing: border-box;
   height: 100%;
+  &.preload * {
+    transition: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+  }
 }
 
 *,

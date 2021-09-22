@@ -1,6 +1,6 @@
 // Reference: https://gracious-joliot-9a183c.netlify.app/
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { BsCheck, BsTrash } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
@@ -36,7 +36,6 @@ const Main = () => {
       completed: false,
     },
   ]);
-
   const [compCount, setCompCount] = useState(0);
   const [status, setStatus] = useState("all");
   const [filter, setFilter] = useState([]);
@@ -104,7 +103,7 @@ const Main = () => {
     setItems(updatedItems);
   };
 
-  const filterHandler = () => {
+  const filterHandler = useCallback(() => {
     switch (status) {
       case "completed":
         setFilter(items.filter((item) => item.completed === true));
@@ -116,7 +115,7 @@ const Main = () => {
         setFilter(items);
         break;
     }
-  };
+  }, [items, status]);
 
   const showCompleted = () => {
     setStatus("completed");
@@ -130,13 +129,33 @@ const Main = () => {
     setStatus("all");
   };
 
+  const saveLocalTodos = useCallback(() => {
+    localStorage.setItem("todos", JSON.stringify(items));
+  }, [items]);
+
+  const getLocalTodos = () => {
+    if (localStorage.getItem("todos") === null) {
+      localStorage.setItem("todos", JSON.stringify([]));
+    } else {
+      let todoLocal = JSON.parse(localStorage.getItem("todos"));
+      setItems(todoLocal);
+    }
+  };
+
+  // Run Once in beggining
+  useEffect(() => {
+    document.documentElement.classList.remove("preload");
+    getLocalTodos();
+  }, []);
+
   useEffect(() => {
     let comp = items.filter((item) => {
       return item.completed;
     });
     setCompCount(comp.length);
     filterHandler();
-  }, [items, status, filterHandler]);
+    saveLocalTodos();
+  }, [items, status, filterHandler, saveLocalTodos]);
 
   return (
     <>
