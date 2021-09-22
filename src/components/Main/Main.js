@@ -38,13 +38,10 @@ const Main = () => {
   ]);
 
   const [compCount, setCompCount] = useState(0);
-
-  useEffect(() => {
-    let comp = items.filter((item) => {
-      return item.completed;
-    });
-    setCompCount(comp.length);
-  }, [items]);
+  const [status, setStatus] = useState("all");
+  const [filter, setFilter] = useState([]);
+  const [toggleEdit, setToggleEdit] = useState(false);
+  const [editID, setEditID] = useState(null);
 
   const checkItem = (id) => {
     console.log("Check handler called");
@@ -63,12 +60,34 @@ const Main = () => {
 
   const addItem = () => {
     if (!inputText) {
-      console.log("Cannot enter Empty String");
+      alert("Please Fill Data");
+    } else if (inputText && toggleEdit) {
+      setItems(
+        items.map((item) => {
+          if (item.id === editID) {
+            return { ...item, text: inputText };
+          }
+          return item;
+        })
+      );
+      setToggleEdit(false);
+      setInputText("");
+      setEditID(null);
     } else {
       setItems([...items, { id: uniqid(), text: inputText, completed: false }]);
       console.log(items);
       setInputText("");
     }
+  };
+
+  const editItem = (i) => {
+    let newEditItem = items.find((item) => {
+      return item.id === i;
+    });
+    console.log(newEditItem.text);
+    setToggleEdit(true);
+    setInputText(newEditItem.text);
+    setEditID(i);
   };
 
   const deleteItem = (i) => {
@@ -85,6 +104,40 @@ const Main = () => {
     setItems(updatedItems);
   };
 
+  const filterHandler = () => {
+    switch (status) {
+      case "completed":
+        setFilter(items.filter((item) => item.completed === true));
+        break;
+      case "active":
+        setFilter(items.filter((item) => item.completed === false));
+        break;
+      default:
+        setFilter(items);
+        break;
+    }
+  };
+
+  const showCompleted = () => {
+    setStatus("completed");
+  };
+
+  const showActive = () => {
+    setStatus("active");
+  };
+
+  const showAll = () => {
+    setStatus("all");
+  };
+
+  useEffect(() => {
+    let comp = items.filter((item) => {
+      return item.completed;
+    });
+    setCompCount(comp.length);
+    filterHandler();
+  }, [items, status, filterHandler]);
+
   return (
     <>
       <div className="todo">
@@ -94,19 +147,24 @@ const Main = () => {
             <ThemeToggle />
           </div>
           <div className="cont mar">
-            <div className="cont__input">
-              <div className="cont__input--circle"></div>
+            <div className={`cont__input ${toggleEdit ? "edit" : ""}`}>
+              {toggleEdit ? (
+                <MdEdit style={{ fontSize: "2rem" }} />
+              ) : (
+                <div className="cont__input--circle"></div>
+              )}
               <input
                 type="text"
                 placeholder="Create a new todo..."
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyDown={(e) => (e.key === "Enter" ? addItem() : null)}
+                className={`${toggleEdit ? "edit" : ""}`}
               />
             </div>
             <div className="cont__list">
               <ul>
-                {items.map((item) => {
+                {filter.map((item) => {
                   return (
                     <li key={item.id}>
                       <div className="check">
@@ -116,17 +174,17 @@ const Main = () => {
                           }`}
                           onClick={() => checkItem(item.id)}
                         >
-                          <BsCheck />
+                          <BsCheck style={{ fontSize: "1.3rem" }} />
                         </div>
                       </div>
                       <p className={`${item.completed ? `comp` : ""}`}>
                         {item.text}
                       </p>
-                      <div className="edit">
-                        <MdEdit />
+                      <div className="edit" onClick={() => editItem(item.id)}>
+                        <MdEdit style={{ fontSize: "1.3rem" }} />
                       </div>
                       <div className="del" onClick={() => deleteItem(item.id)}>
-                        <BsTrash />
+                        <BsTrash style={{ fontSize: "1.3rem" }} />
                       </div>
                     </li>
                   );
@@ -139,9 +197,9 @@ const Main = () => {
                 <p onClick={clearCompleted}>Clear Completed</p>
               </div>
               <div className="cont__fillter--center">
-                <p>All</p>
-                <p>Active</p>
-                <p>Complete</p>
+                <p onClick={showAll}>All</p>
+                <p onClick={showActive}>Active</p>
+                <p onClick={showCompleted}>Complete</p>
               </div>
             </div>
             <div className="cont__foo">

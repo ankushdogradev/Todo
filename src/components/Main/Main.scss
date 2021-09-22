@@ -53,9 +53,13 @@ body {
     @include theme-aware("background", "bg-list");
     @include theme-aware("color", "tc-primary");
     transition: all 1s ease-out;
+    &.edit {
+      background-color: greenyellow;
+      color: green;
+    }
 
     &--circle {
-      width: 24px;
+      min-width: 24px;
       height: 24px;
       @include theme-aware("border", "brdr");
 
@@ -69,6 +73,11 @@ body {
       @include theme-aware("color", "tc-primary");
       @include theme-aware("background", "bg-list");
       transition: all 1s ease-out;
+
+      &.edit {
+        background-color: greenyellow;
+        color: green;
+      }
     }
 
     textarea:focus,
