@@ -27,4 +27,18 @@ body {
 .mar {
   padding-left: 6.4%;
   padding-right: 6.4%;
+  @include breakpoint-up(medium) {
+    padding-left: 21.39%;
+    padding-right: 21.39%;
+  }
+
+  @include breakpoint-up(large) {
+    padding-left: 25.39%;
+    padding-right: 25.39%;
+  }
+
+  @include breakpoint-up(xlarge) {
+    padding-left: 31.39%;
+    padding-right: 31.39%;
+  }
 }
